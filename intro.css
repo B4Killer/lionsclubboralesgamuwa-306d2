@@ -1,0 +1,157 @@
+/* Intro Overlay Styles */
+#intro-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at center, #004e92, #003366);
+    z-index: 9999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    transition: opacity 1s ease-in-out, visibility 1s ease-in-out;
+}
+
+#intro-overlay.hidden {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+
+.intro-content {
+    text-align: center;
+    color: var(--white);
+    position: relative;
+}
+
+.intro-logo-wrapper {
+    position: relative;
+    width: 120px;
+    height: 120px;
+    margin: 0 auto 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.intro-logo {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    /* Changed to contain to prevent cropping if square */
+    border-radius: 50%;
+    background-color: var(--white);
+    /* Ensures logo is visible even if transparent */
+    padding: 15px;
+    /* Spacing for the logo */
+    z-index: 2;
+    animation: logoPop 1.2s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+    opacity: 0;
+    transform: scale(0);
+    box-shadow: 0 0 30px rgba(255, 255, 255, 0.2);
+}
+
+.ripple {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background: rgba(255, 193, 7, 0.2);
+    z-index: 1;
+    transform: scale(0);
+    animation: rippleEffect 2s infinite;
+}
+
+.intro-text {
+    font-family: 'Playfair Display', serif;
+    font-size: 4rem;
+    margin-bottom: 10px;
+    line-height: 1.1;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+}
+
+.text-line {
+    display: block;
+    opacity: 0;
+    transform: translateY(40px);
+    animation: slideUpFade 0.8s cubic-bezier(0.215, 0.610, 0.355, 1.000) forwards;
+}
+
+.text-line.highlight {
+    color: var(--secondary);
+    font-size: 5rem;
+    font-weight: 700;
+    text-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.text-line:nth-child(1) {
+    animation-delay: 0.5s;
+}
+
+.text-line:nth-child(2) {
+    animation-delay: 0.9s;
+}
+
+.intro-welcome {
+    margin-top: 15px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.1rem;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.8);
+    opacity: 0;
+    animation: fadeIn 1s ease forwards 1.8s;
+}
+
+/* Animations Keyframes */
+@keyframes logoPop {
+    0% {
+        opacity: 0;
+        transform: scale(0) rotate(-45deg);
+    }
+
+    70% {
+        transform: scale(1.1) rotate(5deg);
+    }
+
+    100% {
+        opacity: 1;
+        transform: scale(1) rotate(0);
+    }
+}
+
+@keyframes rippleEffect {
+    0% {
+        transform: scale(0.8);
+        opacity: 0.6;
+    }
+
+    100% {
+        transform: scale(2.5);
+        opacity: 0;
+    }
+}
+
+@keyframes slideUpFade {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeIn {
+    to {
+        opacity: 1;
+    }
+}
+
+/* Hide scrollbar when intro is active */
+body.loading {
+    overflow: hidden;
+}
